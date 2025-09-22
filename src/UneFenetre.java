@@ -1,24 +1,34 @@
 import javax.swing.*;
 import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class UneFenetre extends JFrame {
-    private UnMobile sonMobile1;
-    private UnMobile sonMobile2;
-    private final int LARG=400, HAUT=250 , NBRLIG=2, NBRCOL=1;
+    private ArrayList<UnMobile> mobiles;
+    private ArrayList<Thread> threads;
+    private UnMobile mobile;
+    private final int LARG=400, HAUT= 1000 , NBRLIG, NBRCOL=1;
 
     public UneFenetre() {
+        int n=10;
+
+        NBRLIG = n;
         setVisible(true);
         setSize(LARG, HAUT);
         Container leConteneur = getContentPane(); 
         leConteneur.setLayout (new GridLayout(NBRLIG, NBRCOL)); 
+        mobiles = new ArrayList<>();
+        threads = new ArrayList<>();
 
-        sonMobile1 = new UnMobile(LARG, HAUT/NBRLIG);
-        leConteneur.add(sonMobile1);
-        sonMobile2 = new UnMobile(LARG, HAUT/NBRLIG);
-        leConteneur.add(sonMobile2);
-        Thread laTache1 = new Thread(sonMobile1);
-        Thread laTache2 = new Thread(sonMobile2);
-        laTache1.start();
-        laTache2.start();
+        for (int i=0;i<n; i++) {
+            UnMobile mobile = new UnMobile(LARG, HAUT/NBRLIG);
+            mobiles.add(mobile);
+            leConteneur.add(mobile);
+            Thread tache = new Thread(mobile);
+            threads.add(tache);
+        }
+
+        for (Thread tache : threads) 
+            tache.start();
     }
 }
