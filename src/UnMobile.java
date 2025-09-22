@@ -15,7 +15,7 @@ public class UnMobile extends JPanel implements Runnable {
         for(sonDebutDessin= 0;sonDebutDessin < saLargeur - sonPas; sonDebutDessin += sonPas){
             repaint();
                 try{
-                    Thread.sleep((int)(Math.random()*500));
+                    Thread.sleep((int)(Math.random()*500)); //Cooldown aléatoire
                 }//try
                 catch(InterruptedException telleExcp)
                 {telleExcp.printStackTrace();}//catch
@@ -24,7 +24,7 @@ public class UnMobile extends JPanel implements Runnable {
         for(sonDebutDessin= saLargeur - sonPas;sonDebutDessin > 0; sonDebutDessin -= sonPas){
             repaint();
                 try{
-                    Thread.sleep((int)(Math.random()*500));
+                    Thread.sleep((int)(Math.random()*500)); //Cooldown aléatoire 
                 }//try
                 catch(InterruptedException telleExcp)
                 {telleExcp.printStackTrace();}//catch

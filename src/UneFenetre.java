@@ -10,9 +10,8 @@ public class UneFenetre extends JFrame {
     private final int LARG=400, HAUT= 1000 , NBRLIG, NBRCOL=1;
 
     public UneFenetre() {
-        int n=100;
-
-        NBRLIG = n;
+        int n=100; //nombre de mobile
+        NBRLIG = n; //nombre de ligne sur la grille = aux nombre de mobile
         setVisible(true);
         setSize(LARG, HAUT);
         Container leConteneur = getContentPane(); 
@@ -20,7 +19,7 @@ public class UneFenetre extends JFrame {
         mobiles = new ArrayList<>();
         threads = new ArrayList<>();
 
-        for (int i=0;i<n; i++) {
+        for (int i=0;i<n; i++) { //boucle permettant de creer n mobile et n tache et les ajoute aux leurs listes
             UnMobile mobile = new UnMobile(LARG, HAUT/NBRLIG);
             mobiles.add(mobile);
             leConteneur.add(mobile);
@@ -28,7 +27,7 @@ public class UneFenetre extends JFrame {
             threads.add(tache);
         }
 
-        for (Thread tache : threads) 
+        for (Thread tache : threads) // boucle permettant de démarrer tous les threads
             tache.start();
     }
 }
