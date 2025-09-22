@@ -10,7 +10,7 @@ public class UneFenetre extends JFrame {
     private final int LARG=400, HAUT= 1000 , NBRLIG, NBRCOL=1;
 
     public UneFenetre() {
-        int n=10;
+        int n=100;
 
         NBRLIG = n;
         setVisible(true);

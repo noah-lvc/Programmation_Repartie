@@ -3,7 +3,7 @@ import java.awt.*;
 
 public class UnMobile extends JPanel implements Runnable {
     int saLargeur, saHauteur, sonDebutDessin;
-    final int sonPas= 10, sonTemps= 200, sonCote= 40;
+    final int sonPas= 10, sonTemps= 50, sonCote= 40;
 
     public UnMobile(int telleLargeur, int telleHauteur){
         super();
@@ -15,7 +15,7 @@ public class UnMobile extends JPanel implements Runnable {
         for(sonDebutDessin= 0;sonDebutDessin < saLargeur - sonPas; sonDebutDessin += sonPas){
             repaint();
                 try{
-                    Thread.sleep(sonTemps);
+                    Thread.sleep((int)(Math.random()*500));
                 }//try
                 catch(InterruptedException telleExcp)
                 {telleExcp.printStackTrace();}//catch
@@ -24,7 +24,7 @@ public class UnMobile extends JPanel implements Runnable {
         for(sonDebutDessin= saLargeur - sonPas;sonDebutDessin > 0; sonDebutDessin -= sonPas){
             repaint();
                 try{
-                    Thread.sleep(sonTemps);
+                    Thread.sleep((int)(Math.random()*500));
                 }//try
                 catch(InterruptedException telleExcp)
                 {telleExcp.printStackTrace();}//catch
