@@ -20,7 +20,7 @@ public class Affichage extends Thread{
 			for (int i=0; i<texte.length(); i++){
 		    	System.out.print(texte.charAt(i)); // ressource critique
 		    	try {sleep(100);} catch(InterruptedException e){};
-			}
+			} 
 		}
 		//fin section critique
 	}
