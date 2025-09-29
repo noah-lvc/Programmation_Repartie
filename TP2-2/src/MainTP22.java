@@ -12,7 +12,7 @@ public class MainTP22 {
 		Affichage TB = new Affichage("BB");
 
 		TB.start();
-
+		
 		TA.start();
 	}
 
