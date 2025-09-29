@@ -4,7 +4,7 @@ import java.io.Reader;
 import java.io.BufferedReader;
 import java.lang.String;
 
-public class Main {
+public class MainTP22 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
