@@ -1,12 +1,17 @@
 public final class semaphoreGeneral extends semaphore {
-public semaphoreGeneral(int valeurInitiale, int n){
-	super((valeurInitiale != 0) ? 1:n);
-	//System.out.print(valeurInitiale);
-}
-	
-public final synchronized void syncSignal(){
-	super.syncSignal();
-	//System.out.print(valeur);
-	if (valeur>1) valeur = 1;
-}
+    private final int maxValeur;
+
+    // un seul paramètre
+    public semaphoreGeneral(int maxValeur) {
+        super(maxValeur);  // on démarre plein
+        this.maxValeur = maxValeur;
+    }
+
+    @Override
+    public synchronized void syncSignal() {
+        if (valeur < maxValeur) {
+            valeur++;
+            notifyAll();
+        }
+    }
 }

@@ -20,7 +20,7 @@ public class UneFenetre extends JFrame {
         threads = new ArrayList<>();
 
         for (int i=0;i<n; i++) { //boucle permettant de creer n mobile et n tache et les ajoute aux leurs listes
-            UnMobile mobile = new UnMobile(LARG, HAUT/NBRLIG);
+            mobile = new UnMobile(LARG, HAUT/NBRLIG);
             mobiles.add(mobile);
             leConteneur.add(mobile);
             Thread tache = new Thread(mobile);
