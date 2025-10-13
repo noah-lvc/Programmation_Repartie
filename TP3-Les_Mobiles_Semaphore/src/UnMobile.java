@@ -4,7 +4,7 @@ import java.awt.*;
 public class UnMobile extends JPanel implements Runnable {
     int saLargeur, saHauteur, sonDebutDessin;
     final int sonPas= 10, sonTemps= 50, sonCote= 40;
-    static semaphoreBinaire semaphore = new semaphoreBinaire(1);
+    static semaphoreGeneral semaphore = new semaphoreGeneral(1, 5);
 
     public UnMobile(int telleLargeur, int telleHauteur){
         super();
