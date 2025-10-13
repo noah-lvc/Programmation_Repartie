@@ -37,6 +37,7 @@ public class UnMobile extends JPanel implements Runnable {
                     catch(InterruptedException telleExcp)
                     {telleExcp.printStackTrace();}//catch
                     dansSemaphore = false;
+                    repaint();
                     semaphore.syncSignal();
                 }//for
             
@@ -76,6 +77,7 @@ public class UnMobile extends JPanel implements Runnable {
                         catch(InterruptedException telleExcp)
                         {telleExcp.printStackTrace();}//catch
                         dansSemaphore = false;
+                        repaint();
                         semaphore.syncSignal();
                     }//for
 
