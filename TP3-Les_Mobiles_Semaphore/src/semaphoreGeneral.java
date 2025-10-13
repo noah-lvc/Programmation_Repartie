@@ -1,9 +1,8 @@
 public final class semaphoreGeneral extends semaphore {
     private final int maxValeur;
 
-    // un seul paramètre
     public semaphoreGeneral(int maxValeur) {
-        super(maxValeur);  // on démarre plein
+        super(maxValeur); 
         this.maxValeur = maxValeur;
     }
 

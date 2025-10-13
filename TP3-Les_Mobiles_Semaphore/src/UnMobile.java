@@ -26,9 +26,9 @@ public class UnMobile extends JPanel implements Runnable {
                     {telleExcp.printStackTrace();}//catch
                 }//for
 
+            semaphore.syncWait();
+            dansSemaphore = true;
             for(sonDebutDessin= saLargeur/3;sonDebutDessin < saLargeur*2/3 - sonPas; sonDebutDessin += sonPas){
-                semaphore.syncWait();
-                dansSemaphore = true;
                 repaint();
                     try{
                         //Thread.sleep((int)(Math.random()*500)); //Cooldown aléatoire
@@ -36,11 +36,12 @@ public class UnMobile extends JPanel implements Runnable {
                     }//try
                     catch(InterruptedException telleExcp)
                     {telleExcp.printStackTrace();}//catch
-                    dansSemaphore = false;
                     repaint();
-                    semaphore.syncSignal();
+                    
                 }//for
-            
+            dansSemaphore = false;
+            semaphore.syncSignal();
+
             for(sonDebutDessin= saLargeur*2/3;sonDebutDessin < saLargeur - sonPas; sonDebutDessin += sonPas){
                 dansSemaphore = false;
                 repaint();
@@ -65,10 +66,10 @@ public class UnMobile extends JPanel implements Runnable {
                         catch(InterruptedException telleExcp)
                         {telleExcp.printStackTrace();}//catch
                     }//for
-
+                semaphore.syncWait();
+                dansSemaphore = true;
                 for(sonDebutDessin= saLargeur*2/3 - sonPas;sonDebutDessin > saLargeur*1/3; sonDebutDessin -= sonPas){
-                    semaphore.syncWait();
-                    dansSemaphore = true;
+                    
                     repaint();
                         try{
                             //Thread.sleep((int)(Math.random()*500)); //Cooldown aléatoire 
@@ -76,11 +77,12 @@ public class UnMobile extends JPanel implements Runnable {
                         }//try
                         catch(InterruptedException telleExcp)
                         {telleExcp.printStackTrace();}//catch
-                        dansSemaphore = false;
+                        
                         repaint();
-                        semaphore.syncSignal();
+                        
                     }//for
-
+                dansSemaphore = false;
+                semaphore.syncSignal();
                  for(sonDebutDessin= saLargeur*1/3 - sonPas;sonDebutDessin > 0; sonDebutDessin -= sonPas){
                     dansSemaphore = false;
                       repaint();
