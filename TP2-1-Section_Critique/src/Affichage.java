@@ -1,6 +1,3 @@
-/**
- * 
- */
 import java.io.*;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -17,7 +14,7 @@ public class Affichage extends Thread{
 		//section critique
 		synchronized(exclusionImpression){
 			for (int i=0; i<texte.length(); i++){
-		    	System.out.print(texte.charAt(i)); // ressource critique
+		    	System.out.print(texte.charAt(i)); // out est la ressource critique
 		    	try {sleep(100);} catch(InterruptedException e){};
 			} 
 		}
