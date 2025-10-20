@@ -1,29 +1,19 @@
-public class BAL { // BAL est un moniteur
-    private String buffer = null;
-    private Boolean avalaible = true;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeUnit;
 
-    public synchronized void deposer(String bufferContent){
-        while(avalaible == false) {
-            try {
-                wait();
-            } catch(InterruptedException e) { }
-        }
-        this.buffer = bufferContent;
-        System.out.println("Buffer Déposé : " + bufferContent);
-        avalaible = false;
-        notifyAll();    
+public class BAL { 
+    BlockingQueue<String> queue = new ArrayBlockingQueue<String>(1);
+
+    public boolean deposer(String bufferContent) throws InterruptedException {
+        return queue.offer(bufferContent, 200, TimeUnit.MILLISECONDS);
     }
 
-    public synchronized String retirer() {
-        String contenu = this.buffer;
-        while(avalaible == true) {
-            try {
-                wait();
-            } catch(InterruptedException e) { }            
-        }
-        System.out.println("Contenu Buffer : " + this.buffer);
-        avalaible = true;
-        notifyAll();
-        return contenu;
+    public String retirer() throws InterruptedException {
+        return queue.poll(200, TimeUnit.MILLISECONDS);
+    }
+
+    public int getStock() {
+        return queue.size() ;
     }
 }
