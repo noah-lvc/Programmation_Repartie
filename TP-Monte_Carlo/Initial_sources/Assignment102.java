@@ -40,8 +40,8 @@ class PiMonteCarlo {
 }
 public class Assignment102 {
 	public static void main(String[] args) {
-		int n_tot = 80000000;
-		int p = 8;
+		int n_tot = 1000011600;
+		int p = 1;
 		for (int i=0;i<5;i++){
 			PiMonteCarlo PiVal = new PiMonteCarlo(n_tot);
 			long startTime = System.currentTimeMillis();

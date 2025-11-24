@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Callable;
@@ -16,10 +19,14 @@ public class Pi
     public static void main(String[] args) throws Exception 
     {
 	long total=0;
-	// 10 workers, 50000 iterations each
-	total = new Master().doRun(50000, 10);
-	System.out.println("total from Master = " + total);
-    }
+	int tot = 100001160
+	;
+	int worker = 10;
+	for (int i=0; i<5;i++) {
+		total = new Master().doRun(tot, worker);
+		System.out.println("total from Master = " + total);
+    	}
+	}
 }
 
 /**
@@ -30,7 +37,7 @@ class Master {
     public long doRun(int totalCount, int numWorkers) throws InterruptedException, ExecutionException 
     {
 
-	long startTime = System.currentTimeMillis();
+	long startTime = System.nanoTime();;
 
 	// Create a collection of tasks
 	List<Callable<Long>> tasks = new ArrayList<Callable<Long>>();
@@ -53,7 +60,7 @@ class Master {
 	    }
 	double pi = 4.0 * total / totalCount / numWorkers;
 
-	long stopTime = System.currentTimeMillis();
+	long stopTime = System.nanoTime();
 
 	System.out.println("\nPi : " + pi );
 	System.out.println("Error: " + (Math.abs((pi - Math.PI)) / Math.PI) +"\n");
@@ -63,6 +70,14 @@ class Master {
 	System.out.println("Time Duration (ms): " + (stopTime - startTime) + "\n");
 
 	System.out.println( (Math.abs((pi - Math.PI)) / Math.PI) +" "+ totalCount*numWorkers +" "+ numWorkers +" "+ (stopTime - startTime));
+
+	try(
+		FileWriter fw = new FileWriter("test_times.txt", true);
+		PrintWriter pw = new PrintWriter(fw)) {
+			pw.println(totalCount + " " + numWorkers + " " + (stopTime - startTime));
+		} catch(IOException e){
+		e.printStackTrace();
+	}
 
 	exec.shutdown();
 	return total;
