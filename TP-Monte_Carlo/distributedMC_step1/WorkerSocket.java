@@ -1,5 +1,6 @@
 import java.io.*;
 import java.net.*;
+import java.util.Random;
 /**
  * Worker is a server. It computes PI by Monte Carlo method and sends 
  * the result to Master.
@@ -33,8 +34,16 @@ public class WorkerSocket {
 		
 		// compute
 		System.out.println("TODO : compute Monte Carlo and send total");
+        long circleCount = 0;
+	  Random prng = new Random ();
+	  for (int j = 0; j < Integer.parseInt(str); j++) 
+	      {
+		  double x = prng.nextDouble();
+		  double y = prng.nextDouble();
+		  if ((x * x + y * y) < 1)  ++circleCount;
+	      }
 
-	        pWrite.println(str);         // send number of points in quarter of disk
+	        pWrite.println(circleCount);         // send number of points in quarter of disk
 	    }else{
 		isRunning=false;
 	    }	    
