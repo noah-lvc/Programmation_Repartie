@@ -19,9 +19,9 @@ public class Pi
     public static void main(String[] args) throws Exception 
     {
 	long total=0;
-	int tot = 100001160
+	int tot = 500000;
 	;
-	int worker = 10;
+	int worker = 8;
 	for (int i=0; i<5;i++) {
 		total = new Master().doRun(tot, worker);
 		System.out.println("total from Master = " + total);
@@ -62,8 +62,11 @@ class Master {
 
 	long stopTime = System.nanoTime();
 
+
+
+
 	System.out.println("\nPi : " + pi );
-	System.out.println("Error: " + (Math.abs((pi - Math.PI)) / Math.PI) +"\n");
+	System.out.println("Error: " + String.format("%.10f", (Math.abs(pi - Math.PI) / Math.PI)) +"\n");
 
 	System.out.println("Ntot: " + totalCount*numWorkers);
 	System.out.println("Available processors: " + numWorkers);
@@ -74,8 +77,11 @@ class Master {
 	try(
 		FileWriter fw = new FileWriter("test_times.txt", true);
 		PrintWriter pw = new PrintWriter(fw)) {
-			pw.println(totalCount + " " + numWorkers + " " + (stopTime - startTime));
-		} catch(IOException e){
+			pw.println(totalCount + " " 
+			+ numWorkers + " " 
+			+ (stopTime - startTime) + " " 
+			+ String.format("%.10f", (Math.abs(pi - Math.PI) / Math.PI)));
+				} catch(IOException e){
 		e.printStackTrace();
 	}
 
