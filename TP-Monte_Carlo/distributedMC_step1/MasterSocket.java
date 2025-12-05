@@ -67,6 +67,7 @@ public class MasterSocket {
 
        while (message_repeat.equals("y")){
 
+		total = 0;
 	   startTime = System.currentTimeMillis();
 	   // initialize workers
 	   for(int i = 0 ; i < numWorkers ; i++) {

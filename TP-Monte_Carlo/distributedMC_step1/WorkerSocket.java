@@ -35,8 +35,8 @@ public class WorkerSocket {
 		// compute
 		System.out.println("TODO : compute Monte Carlo and send total");
         long circleCount = 0;
-	  Random prng = new Random ();
-	  for (int j = 0; j < Integer.parseInt(str); j++) 
+	    Random prng = new Random ();
+	    for (int j = 0; j < Integer.parseInt(str); j++) 
 	      {
 		  double x = prng.nextDouble();
 		  double y = prng.nextDouble();
@@ -51,5 +51,6 @@ public class WorkerSocket {
         bRead.close();
         pWrite.close();
         soc.close();
+        s.close();
    }
 }
