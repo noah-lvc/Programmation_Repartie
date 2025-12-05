@@ -1,3 +1,4 @@
+package initial_sources;
 /**
  * Approximates PI using the Monte Carlo method.  Demonstrates
  * use of Callables, Futures, and thread pools.
