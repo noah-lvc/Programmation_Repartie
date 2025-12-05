@@ -6,3 +6,6 @@ Ce dépôt contient les TP réalisés dans le cadre de mon 5e Semestre durant mo
 - TP1 : Les Mobiles
 - TP2 : Sections Critiques
 - TP3 : Les Mobiles + Semaphore
+- TP4-1 : Moniteurs1
+- TP4-2 : Moniteurs2
+- TP5 : Monte Carlo
