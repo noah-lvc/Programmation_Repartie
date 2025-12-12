@@ -11,6 +11,3 @@ java WorkerSocket <port>
 on client terminal (Master):
 make
 make run
-
-
-ports : 25545,25546,25547,25548,25549,25550,25551,25552

@@ -1,23 +1,24 @@
+package distributedMC_step1;
+
 import java.io.*;
 import java.net.*;
 /** Master is a client. It makes requests to numWorkers.
  *   
  */
 public class MasterSocket {
-    static int maxServer = 8;
-    static final int[] tab_port = {25545,25546,25547,25548,25549,25550,25551,25552};
+    static int maxServer = 24;
+        static final int[] tab_port = {25545,25545,25546,25546,25547,25547,25548,25548,25549,25549,25550,25550,25551,25551,25552,25552,25553,25553,25554,25554,25555,25555,25556,25556};
     static String[] tab_total_workers = new String[maxServer];
-    //static final String ip = "192.168.24.217";
-	static final String ip = "192.168.24.217";
+    //static final String ip = "127.0.0.1";
+	static final String[] ips = {"127.0.0.1","192.168.24.217"};
     static BufferedReader[] reader = new BufferedReader[maxServer];
     static PrintWriter[] writer = new PrintWriter[maxServer];
     static Socket[] sockets = new Socket[maxServer];
     
-    
     public static void main(String[] args) throws Exception {
 
 	// MC parameters
-	int totalCount = 16000000; // total number of throws on a Worker
+	int totalCount = 7142857; // total number of throws on a Worker
 	int total = 0; // total number of throws inside quarter of disk
 	double pi; 
 
@@ -51,8 +52,13 @@ public class MasterSocket {
 	}
 
        //create worker's socket
+
        for(int i = 0 ; i < numWorkers ; i++) {
-	   sockets[i] = new Socket(ip, tab_port[i]);
+           String ip = ips[0];
+           if (i%2 == 1) {
+               ip =  ips[1];
+           }
+           sockets[i] = new Socket(ip, tab_port[i]);
 	   System.out.println("SOCKET = " + sockets[i]);
 	   
 	   reader[i] = new BufferedReader( new InputStreamReader(sockets[i].getInputStream()));
@@ -69,8 +75,8 @@ public class MasterSocket {
        while (message_repeat.equals("y")){
 
 		total = 0;
-	   startTime = System.currentTimeMillis();
-	   // initialize workers
+	   startTime = System.nanoTime();
+           // initialize workers
 	   for(int i = 0 ; i < numWorkers ; i++) {
 	       writer[i].println(message_to_send);          // send a message to each worker
 	   }
@@ -80,32 +86,40 @@ public class MasterSocket {
 	       tab_total_workers[i] = reader[i].readLine();      // read message from server
 	       System.out.println("Client sent: " + tab_total_workers[i]);
 	   }
-	   
+	   	   
 	   // compute PI with the result of each workers
 	   for(int i = 0 ; i < numWorkers ; i++) {
 	       total += Integer.parseInt(tab_total_workers[i]);
 	   }
 	   pi = 4.0 * total / totalCount / numWorkers;
 
-	   stopTime = System.currentTimeMillis();
+           stopTime = System.nanoTime();
 
-	   System.out.println("\nPi : " + pi );
-	   System.out.println("Error: " + (Math.abs((pi - Math.PI)) / Math.PI) +"\n");
-	   
-	   System.out.println("Ntot: " + totalCount*numWorkers);
-	   System.out.println("Available processors: " + numWorkers);
-	   System.out.println("Time Duration (ms): " + (stopTime - startTime) + "\n");
-	   
-	   System.out.println( (Math.abs((pi - Math.PI)) / Math.PI) +" "+ totalCount*numWorkers +" "+ numWorkers +" "+ (stopTime - startTime));
+           System.out.println("\nPi : " + pi );
+           System.out.println("Error: " + (Math.abs((pi - Math.PI)) / Math.PI) +"\n");
 
-	   System.out.println("\n Repeat computation (y/N): ");
-	   try{
-	       message_repeat = bufferRead.readLine();
-	       System.out.println(message_repeat);
-	   }
-	   catch(IOException ioE){
-	       ioE.printStackTrace();
-	   }
+           System.out.println("Ntot: " + totalCount*numWorkers);
+           System.out.println("Available processors: " + numWorkers);
+           System.out.println("Time Duration (ms): " + (stopTime - startTime) + "\n");
+
+           System.out.println( (Math.abs((pi - Math.PI)) / Math.PI) +" "+ totalCount*numWorkers +" "+ numWorkers +" "+ (stopTime - startTime));
+
+           try(
+                   FileWriter fw = new FileWriter("test_times.txt", true);
+                   PrintWriter pw = new PrintWriter(fw)) {
+               pw.println(totalCount + " " + numWorkers + " " + (stopTime - startTime) + " " + String.format("%.10f", (Math.abs(pi - Math.PI) / Math.PI)));;
+           } catch(IOException e){
+               e.printStackTrace();
+           }
+
+           System.out.println("\n Repeat computation (y/N): ");
+           try{
+               message_repeat = bufferRead.readLine();
+               System.out.println(message_repeat);
+           }
+           catch(IOException ioE){
+               ioE.printStackTrace();
+           }
        }
        
        for(int i = 0 ; i < numWorkers ; i++) {

@@ -1,6 +1,9 @@
 package initial_sources;
+
+
 import java.util.Random;
 import java.util.concurrent.Callable;
+
 
 /**
  * Task for running the Monte Carlo simulation.
@@ -16,14 +19,14 @@ public class Worker implements Callable<Long>
   @Override
       public Long call() 
       {
-	  long circleCount = 0;
-	  Random prng = new Random ();
-	  for (int j = 0; j < numIterations; j++) 
-	      {
-		  double x = prng.nextDouble();
-		  double y = prng.nextDouble();
-		  if ((x * x + y * y) < 1)  ++circleCount;
-	      }
-	  return circleCount;
+		long circleCount = 0;
+		Random prng = new Random ();
+		for (int j = 0; j < numIterations; j++) 
+		{
+			double x = prng.nextDouble();
+			double y = prng.nextDouble();
+			if ((x * x + y * y) < 1)  ++circleCount;
+		}
+		return circleCount;
       }
 }

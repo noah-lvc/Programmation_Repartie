@@ -1,6 +1,9 @@
+package distributedMC_step1;
+
 import java.io.*;
 import java.net.*;
 import initial_sources.*;
+
 
 /**
  * Worker is a server. It computes PI by Monte Carlo method and sends 
@@ -29,30 +32,25 @@ public class WorkerSocket {
         PrintWriter pWrite = new PrintWriter(new BufferedWriter(new OutputStreamWriter(soc.getOutputStream())), true);
 	String str;
         while (isRunning) {
-            str = bRead.readLine();          // read message from Master
-            if (!(str.equals("END"))){
-                System.out.println("Server receives totalCount = " +  str);
-                
-
-                long total = new Master().doRun(Integer.parseInt(str), 1);
-
-                // compute
-                //System.out.println("TODO : compute Monte Carlo and send total");
-                //long circleCount = 0;
-                //Random prng = new Random ();
-                //for (int j = 0; j < Integer.parseInt(str); j++) 
-                //{
-                //   double x = prng.nextDouble();
-                //    double y = prng.nextDouble();
-                //    if ((x * x + y * y) < 1)  ++circleCount;
-                //}
-
-                //pWrite.println(circleCount);         // send number of points in quarter of disk
-                pWrite.println(total);
-
-            }else{
-            isRunning=false;
-            }	    
+	    str = bRead.readLine();          // read message from Master
+	    if (!(str.equals("END"))){
+		System.out.println("Server receives totalCount = " +  str);
+		
+		// compute
+		//System.out.println("TODO : compute Monte Carlo and send total");
+        long total = new Master().doRun(Integer.parseInt(str), 1);
+        //long circleCount = 0;
+		//Random prng = new Random ();
+		//for (int j = 0; j < Integer.parseInt(str); j++) 
+		//{
+		//	double x = prng.nextDouble();
+		//	double y = prng.nextDouble();
+		//	if ((x * x + y * y) < 1)  ++circleCount;
+		//}
+	        pWrite.println(total);         // send number of points in quarter of disk
+	    }else{
+		isRunning=false;
+	    }	    
         }
         bRead.close();
         pWrite.close();
